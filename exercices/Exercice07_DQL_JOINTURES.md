@@ -15,3 +15,7 @@ Considérez deux tables, "Clients" et "Achats".
    d. **FULL JOIN :**
    - Sélectionnez tous les clients et tous les achats, en affichant les détails des clients même s'ils n'ont pas effectué d'achats, et vice versa.
 
+Bonus :
+
+- Sélectionner tous les clients qui n'ont effectué aucun achats.
+- Sélectionner tous les achats qui ne sont associé à aucun clients. 
