@@ -151,3 +151,50 @@ FROM services
 GROUP BY year, month
 ORDER BY year, month; 
 
+-- JOINTURES
+
+ALTER TABLE employes
+	DROP CONSTRAINT fk_service_id;
+
+INSERT INTO employes (nom, prenom, service_id, salaire, age)
+VALUES ('Toto', 'Tata', 7, 5000, 30);
+
+-- INNER JOIN permet de récupérer les informations croisé entre 2 tables
+-- Nous ne récupéront que les enregistrement donc l'id est présent dans les 2 tables.
+SELECT e.prenom, e.nom, s.libelle, s.date_creation
+FROM employes AS e
+INNER JOIN services AS s ON e.service_id = s.service_id;
+
+-- JOIN équivaut à INNER JOIN cependant le nom de la colonne générant la liaison entre les 2 tables 
+-- doit porter le même nom
+SELECT e.prenom, e.nom, s.libelle, s.date_creation
+FROM employes AS e
+JOIN services AS s USING(service_id);
+
+-- NATURAL JOIN associe automatiquement tous les champs d'une table avec tous les champs correspondant de l'autre
+-- A EVITER !!!
+SELECT e.prenom, e.nom, s.libelle, s.date_creation
+FROM employes AS e
+NATURAL JOIN services AS s;
+
+-- LEFT JOIN récupère l'intersections des 2 tables + les données non-associé de la table du FROM
+SELECT e.prenom, e.nom, s.libelle, s.date_creation
+FROM employes AS e
+LEFT JOIN services AS s ON e.service_id = s.service_id;
+
+-- RIGHT JOIN récupère l'intersections des 2 tables + les données non-associé de la table du RIGHT JOIN
+SELECT e.prenom, e.nom, s.libelle, s.date_creation
+FROM employes AS e
+RIGHT JOIN services AS s ON e.service_id = s.service_id;
+
+-- FULL JOIN récupère l'intersections des 2 tables + les données non-associé de la table A et B.
+SELECT e.*, s.*
+FROM employes AS e
+FULL JOIN services AS s ON e.service_id = s.service_id;
+
+-- CROSS JOIN associe tous les enregistrements de la table A avec tous les enregistrement de la table B.
+-- (Pas besoin de champs similaire entre eux)
+SELECT e.*, s.*
+FROM employes AS e
+FULL JOIN services AS s ON e.service_id = s.service_id;
+
