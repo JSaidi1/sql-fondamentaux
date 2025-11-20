@@ -198,3 +198,42 @@ SELECT e.*, s.*
 FROM employes AS e
 FULL JOIN services AS s ON e.service_id = s.service_id;
 
+
+-- Sous requête
+
+-- Une sous-requête peut renvoyer 3 types de résultats :
+-- 1. Une valeur scalaire (une seule valeur)
+-- 2. Une liste (tableau de 1 dimension)
+-- 3. Un tableau de valeur (tableau 2 dimension)
+
+-- Cas 1 
+SELECT prenom, nom
+FROM employes
+WHERE service_id IN (SELECT service_id FROM services WHERE libelle = 'IT');
+
+-- Cas 2 
+SELECT prenom, nom
+FROM employes
+WHERE service_id IN (SELECT service_id FROM services WHERE service_id >= 4);
+
+-- Cas 3
+SELECT prenom, nom
+FROM (SELECT * FROM employes WHERE age >= 30) AS employe_30_ans_plus
+WHERE salaire > 2000;
+
+-- Requete avec ANY
+SELECT prenom, nom, salaire
+FROM employes
+WHERE salaire > ANY (SELECT salaire FROM employes WHERE age < 30)
+
+
+-- Requete avec ALL
+SELECT prenom, nom, salaire
+FROM employes
+WHERE salaire > ALL (SELECT salaire FROM employes WHERE age < 30)
+
+-- Sous requête corrélée
+-- La sous requête est lié à un élement de la requête qui l'englobe.
+SELECT e.prenom, e.nom, e.service_id
+FROM employes AS e
+WHERE e.service_id IN (SELECT s.service_id FROM services AS s WHERE LENGTH(s.libelle) >= LENGTH(e.prenom));
