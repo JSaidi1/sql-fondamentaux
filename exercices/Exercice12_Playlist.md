@@ -37,6 +37,20 @@ L’exercice repose sur les tables suivantes (vous pouvez reprendre la structure
 * `id_chanson` : clé étrangère vers `chansons`
 * `date_creation` : date/heure par défaut actuelle
 
+### Structure permettant plusieurs chansons dans une playlist <=================================
+
+### Table `playlists`
+
+* `id_playlist` : identifiant unique (clé primaire)
+* `nom_playlist` : texte
+* `id_utilisateur` : clé étrangère vers `utilisateurs`
+* `date_creation` : date/heure par défaut actuelle
+
+### Table `playlists_chansons`
+
+* `id_playlist` : identifiant unique (clé primaire)
+* `id_chansons` : clé étrangère vers `utilisateurs`
+
 
 ## 2. Fonctions à implémenter
 
